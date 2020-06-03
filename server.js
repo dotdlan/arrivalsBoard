@@ -22,7 +22,7 @@ app.use(express.urlencoded({ extended: false}))
 app.use(methodOverride('_method'))
 // routes
 app.get('/', (req, res) => {
-    res.send('Hello World!')
+    res.send('Hello World!.. testing')
 })
 app.listen(PORT, () => {
     console.log('Listening on port:', PORT)
