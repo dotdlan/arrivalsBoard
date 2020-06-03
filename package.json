@@ -1,0 +1,32 @@
+{
+  "name": "flightboard",
+  "version": "1.0.0",
+  "engines": {
+    "node" : "14.2.0"
+},
+  "description": "a replica of the flights arrival and departures board in the virtual world",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/david6116/FlightBoard.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/david6116/FlightBoard/issues"
+  },
+  "homepage": "https://github.com/david6116/FlightBoard#readme",
+  "dependencies": {
+    "bcrypt": "^4.0.1",
+    "dotenv": "^8.2.0",
+    "ejs": "^3.1.3",
+    "express": "^4.17.1",
+    "express-session": "^1.17.1",
+    "method-override": "^3.0.0",
+    "mongoose": "^5.9.17"
+  }
+}
