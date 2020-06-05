@@ -5,9 +5,7 @@ const router = express.Router();
 
 // NEW
 router.get('/new', (req, res) => {
-    res.render(
-        'router/new.ejs'
-    )
+
 })
 
 // EDIT
@@ -37,7 +35,7 @@ router.post('/', (req, res) => {
 
 // INDEX
 router.get('/', (req, res) => {
-    res.render('index.ejs')
+    res.render('flights/index.ejs')
 })
 
 
