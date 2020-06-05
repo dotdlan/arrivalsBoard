@@ -20,16 +20,15 @@ db.on('connected', () => console.log('mongo connected: ', MONGODB_URI));
 db.on('disconnected', () => console.log('mongo disconnected'));
 
 // middleware
-const flightController = require('./controllers/flightControl')
-app.use('/', flightController)
 // use the public folder
 app.use(express.static('public'))
 app.use(express.urlencoded({ extended: false}))
 app.use(methodOverride('_method'))
-// routes
-app.get('/', (req, res) => {
-    res.send('Hello World!.. testing again')
-})
+
+// controllers
+const flightController = require('./controllers/flightControl')
+app.use('/', flightController)
+
 app.listen(PORT, () => {
     console.log('Listening on port:', PORT)
 })
