@@ -2,8 +2,8 @@
   "name": "flightboard",
   "version": "1.0.0",
   "engines": {
-    "node" : "14.2.0"
-},
+    "node": "14.2.0"
+  },
   "description": "a replica of the flights arrival and departures board in the virtual world",
   "main": "server.js",
   "scripts": {
@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/david6116/FlightBoard#readme",
   "dependencies": {
+    "axios": "^0.19.2",
     "bcrypt": "^4.0.1",
     "dotenv": "^8.2.0",
     "ejs": "^3.1.3",
