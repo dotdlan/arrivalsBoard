@@ -2,6 +2,7 @@
 const express = require('express')
 const methodOverride = require('method-override')
 const mongoose = require('mongoose')
+const session = require('express-session');
 
 //config
 const app = express()
@@ -24,12 +25,24 @@ db.on('disconnected', () => console.log('mongo disconnected'));
 app.use(express.static('public'))
 app.use(express.urlencoded({ extended: true}))
 app.use(methodOverride('_method'))
+app.use(session({
+    secret:'batman',
+    resave:false,
+    saveUninitialized:false
+}));
 
 // controllers
 const flightController = require('./controllers/flightControl')
 app.use('/flight', flightController)
 const usersController = require('./controllers/userController.js');
 app.use('/users', usersController);
+const sessionController = require('./controllers/sessionController.js');
+app.use('/session', sessionController);
+
+//home route
+app.get('/', (req, res) => {
+    res.render('flights/home.ejs');
+});
 
 app.listen(PORT, () => {
     console.log('Listening on port:', PORT)

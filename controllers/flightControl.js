@@ -1,6 +1,7 @@
 const express = require('express');
 const Data = require('../models/openSky.js');
 const router = express.Router();
+const bcrypt = require('bcrypt');
 
 
 // NEW
@@ -35,7 +36,16 @@ router.post('/', (req, res) => {
 
 // INDEX
 router.get('/', (req, res) => {
-    res.render('flights/index.ejs')
+    if(req.session.user){
+        res.render(
+            'flights/index.ejs',
+            {
+            user:req.session.user
+            }
+        );
+    } else {
+        res.redirect('/');
+    }
 })
 
 

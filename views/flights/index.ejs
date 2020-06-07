@@ -11,12 +11,18 @@
 <h1>Welcome</h1>
 <nav>
     <ul>
+        <% if(user){ %>
+        <li>
+            Welcome, <%=user.username%>
+        </li>
+        <% } else { %>
         <li>
             <a href="#">Log In</a>
         </li>
         <li>
             <a href="/users/new">Sign Up</a>
         </li>
+        <% } %>
     </ul>
 </nav>
 </body>
