@@ -6,30 +6,24 @@
     <title>Flight Board</title>
 </head>
 <body>
-<h1>Welcome</h1>
-<li>
-    <a href="/users/new">Register</a>
-</li>
-<li>
-    <a href="/session/new">Log In</a>
-</li>
-
-
-<table class="table">
-    <tr>
-        <th>Flight #</th>
-        <th>Est Arrival</th>
-        <th>Origin</th>
-        <th>Dest</th>
-    </tr>
-    <% for (const item in data){ %>
-    <tr>
-        <th><a href='/show/<%=data[item].ident %>'><%=data[item].ident %></a></th>
-        <th><%=data[item].estimatedarrivaltime %></th>
-        <th><%=data[item].origin %></th>
-        <th><%=data[item].destination %></th>
-    </tr>
-    <% }%>
-</table>
+<%- include ('../partials/header.ejs') %>
+    <div class="table-container">
+        <table class="table text-center">
+            <tr>
+                <th>Flight #</th>
+                <th>Est Arrival</th>
+                <th>Origin</th>
+                <th>Dest</th>
+            </tr>
+            <% for (const item in data){ %>
+            <tr>
+                <th><a href='/show/<%=data[item].ident %>'><%=data[item].ident %></a></th>
+                <th><%=data[item].estimatedarrivaltime %></th>
+                <th><%=data[item].origin %></th>
+                <th><%=data[item].destination %></th>
+            </tr>
+            <% }%>
+        </table>
+    </div>
 </body>
 </html>

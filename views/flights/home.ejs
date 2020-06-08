@@ -6,24 +6,7 @@
     <title>Home Airport</title>
 </head>
 <body>
-    <nav>
-        <ul>
-            <% if(user){ %>
-            <li>
-                Welcome, <%=user.username%>
-            </li>
-            <li>
-                <a href="/users/edit">edit</a>
-            </li>
-            <% } else { %>
-                <li>
-                    <a href="#">Log In</a>
-                </li>
-                <li>
-                    <a href="/users/new">Sign Up</a>
-                </li>
-            <% } %>
-        </ul>
-    </nav>
+<%- include ('../partials/header.ejs') %>
+
 </body>
 </html>

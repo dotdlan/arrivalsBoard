@@ -48,7 +48,8 @@ app.get('/', (req, res) => {
             const arrivalData = data.EnrouteResult.enroute
             res.render('flights/index.ejs',
             {
-                data:arrivalData
+                data:arrivalData,
+                user:""
             })
         })
 })
