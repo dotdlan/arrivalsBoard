@@ -15,6 +15,11 @@
                 Birthday: <input type="date" name="dob" /><br/>
                 <input type="submit" value="Update"/>
             </form>
+            Delete account?
+            <form action="/users/delete/<%=user._id %>?_method=DELETE" method="POST">
+                <input type="submit" value="DELETE"/>
+            </form>
+
         </div>
     </div>
 </body>

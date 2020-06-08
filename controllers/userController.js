@@ -46,4 +46,11 @@ router.put('/edit/:id', (req, res) => {
     })
 })
 
+//Delete user account, GDPR
+router.delete('/delete/:id', (req, res) => {
+    User.findByIdAndRemove(req.params.id, (err, data) => {
+        res.redirect('/')
+    })
+})
+
 module.exports = router;
