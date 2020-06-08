@@ -1,3 +1,4 @@
+<!--a logged in user will see this-->
 <!doctype html>
 <html lang="en">
 <head>
@@ -8,8 +9,24 @@
     <title>Home Page</title>
 </head>
 <body>
-    <li>
-        <a href="/session/new">Log In</a>
-    </li>
+    <nav>
+        <ul>
+            <% if(user){ %>
+            <li>
+                Welcome, <%=user.username%>
+            </li>
+            <li>
+                <a href="/users/edit">edit</a>
+            </li>
+            <% } else { %>
+                <li>
+                    <a href="#">Log In</a>
+                </li>
+                <li>
+                    <a href="/users/new">Sign Up</a>
+                </li>
+            <% } %>
+        </ul>
+    </nav>
 </body>
 </html>

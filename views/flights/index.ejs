@@ -1,3 +1,4 @@
+<!--a !logged in user will see this-->
 <!doctype html>
 <html lang="en">
 <head>
@@ -9,24 +10,26 @@
 </head>
 <body>
 <h1>Welcome</h1>
-<nav>
-    <ul>
-        <% if(user){ %>
-        <li>
-            Welcome, <%=user.username%>
-        </li>
-        <li>
-            <a href="/users/edit">edit</a>
-        </li>
-        <% } else { %>
-        <li>
-            <a href="#">Log In</a>
-        </li>
-        <li>
-            <a href="/users/new">Sign Up</a>
-        </li>
-        <% } %>
-    </ul>
-</nav>
+<li>
+    <a href="/session/new">Log In</a>
+</li>
+
+
+<table style="width:100%">
+    <tr>
+        <th>Flight #</th>
+        <th>Est Arrival</th>
+        <th>Origin</th>
+        <th>Dest</th>
+    </tr>
+    <% for (const item in data){ %>
+    <tr>
+        <th><a href='/show/<%=data[item].ident %>'><%=data[item].ident %></a></th>
+        <th><%=data[item].estimatedarrivaltime %></th>
+        <th><%=data[item].origin %></th>
+        <th><%=data[item].destination %></th>
+    </tr>
+    <% }%>
+</table>
 </body>
 </html>

@@ -3,6 +3,7 @@ const express = require('express')
 const methodOverride = require('method-override')
 const mongoose = require('mongoose')
 const session = require('express-session');
+const fetch = require("node-fetch");
 
 //config
 const app = express()
@@ -41,8 +42,17 @@ app.use('/session', sessionController);
 
 //home route
 app.get('/', (req, res) => {
-    res.render('flights/home.ejs');
-});
+    fetch(`http://${process.env.FA_NAME}:${process.env.FA_KEY}@flightxml.flightaware.com/json/FlightXML2/Enroute?airport=katl&filter=airline`)
+        .then(response => response.json())
+        .then(data => {
+            const arrivalData = data.EnrouteResult.enroute
+            res.render('flights/index.ejs',
+            {
+                data:arrivalData
+            })
+        })
+})
+
 
 app.listen(PORT, () => {
     console.log('Listening on port:', PORT)
