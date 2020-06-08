@@ -15,6 +15,8 @@ const PORT = process.env.PORT || 3333
 const MONGODB_URI = process.env.MONGODB_URI
 mongoose.connect(MONGODB_URI , { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false }
 )
+const Airports = require('./models/airports.js')
+const airportSeed = require('./models/airportSeeds')
 
 // Error / success
 db.on('error', (err) => console.log(err.message + ' is Mongod not running?'));
@@ -52,6 +54,13 @@ app.get('/', (req, res) => {
                 user:""
             })
         })
+})
+
+app.get('/seed', (req, res) => {
+    Airports.create(airportSeed, (err, data) => {
+  if (err) console.log(err.message)
+  console.log('added data')
+})
 })
 
 
