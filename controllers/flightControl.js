@@ -3,9 +3,81 @@ const Data = require('../models/openSky.js');
 const router = express.Router();
 const fetch = require("node-fetch");
 require('dotenv').config()
+const Airports = require('../models/airports.js')
+let selectedAirport = 'katl'
+
+router.get('/', (req, res) =>{
+    fetch(`http://${process.env.FA_NAME}:${process.env.FA_KEY}@flightxml.flightaware.com/json/FlightXML2/Enroute?airport=${selectedAirport}&filter=airline`)
+        .then(response => response.json())
+        .then(data => {
+            const arrivalData = data.EnrouteResult.enroute
+            //will use promises to fulfill my findOne req
+            const promises = []
+            //let's translate some of the data to something more human readable
+            for(let i = 0; i < arrivalData.length-1; i++) {
+                //First, let's translate origin time from epoch to human
+                let epochTime = arrivalData[i].estimatedarrivaltime;
+                let humanTime = new Date(epochTime * 1000)
+                arrivalData[i].estimatedarrivaltime = humanTime.toLocaleTimeString('en-US')
+                //Next, let's convert those origin icao airport codes to iata city codes
+                const originPromise = new Promise(resolve => {
+                    Airports.findOne({icao: arrivalData[i].origin}, (err, airport) => {
+                        arrivalData[i].origin = airport.iata
+                        resolve()
+                    })
+                })
+                //let's do the same thing for the dest airport codes
+                const destinationPromise = new Promise(resolve => {
+                    Airports.findOne({icao: arrivalData[i].destination}, (err, airport) => {
+                        arrivalData[i].destination = airport.iata
+                        resolve()
+                    })
+                })
+                promises.push(originPromise)
+                promises.push(destinationPromise)
+            }
+            Promise.all(promises)
+                .then(() => {
+                    res.render('flights/index.ejs',
+                        {
+                            data:arrivalData,
+                            user:req.session.user
+                        })
+                })
+
+        })
+})
+
+router.post('/search/', (req, res) => {
+    let userInfo = req.session.user.username
+    let searchTerm = req.body.input[0]
+    console.log(userInfo)
+    console.log(searchTerm)
+    console.log(searchTerm.length)
+    const hasNumbers = (str) =>{
+        let regex = /\d/g;
+        return regex.test(str);
+    }
+    console.log(hasNumbers(searchTerm))
+    if (searchTerm.length === 3){
+        console.log('if wins, city code')
+        Airports.findOne({iata: searchTerm}).then( foundAirport =>{
+            selectedAirport = foundAirport.icao
+            res.redirect('/flight')
+        })
+
+    } else if (hasNumbers(searchTerm)) {
+        console.log('else if wins, probably a flight number')
+    } else{
+        console.log('else wins, probably a city')
+    }
+
+})
+
+
 
 // Show detail status on a specific flight
-router.get('/:id', (req, res) => {
+router.get('/detail/:id', (req, res) => {
     fetch(`https://${process.env.FA_NAME}:${process.env.FA_KEY}@flightxml.flightaware.com/json/FlightXML2/InFlightInfo?ident=${req.params.id}`)
         .then(response => response.json())
         .then(data => {
@@ -17,5 +89,7 @@ router.get('/:id', (req, res) => {
                 })
          })
 })
+
+
 
 module.exports = router;

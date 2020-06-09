@@ -44,45 +44,7 @@ app.use('/session', sessionController);
 
 //home route
 app.get('/', (req, res) => {
-    fetch(`http://${process.env.FA_NAME}:${process.env.FA_KEY}@flightxml.flightaware.com/json/FlightXML2/Enroute?airport=katl&filter=airline`)
-        .then(response => response.json())
-        .then(data => {
-            const arrivalData = data.EnrouteResult.enroute
-            //will use promises to fulfill my findOne req
-            const promises = []
-            //let's translate some of the data to something more human readable
-            for(let i = 0; i < arrivalData.length-1; i++) {
-                //First, let's translate origin time from epoch to human
-                let epochTime = arrivalData[i].estimatedarrivaltime;
-                let humanTime = new Date(epochTime * 1000)
-                arrivalData[i].estimatedarrivaltime = humanTime.toLocaleTimeString('en-US')
-                //Next, let's convert those origin icao airport codes to iata city codes
-                const originPromise = new Promise(resolve => {
-                    Airports.findOne({icao: arrivalData[i].origin}, (err, airport) => {
-                        arrivalData[i].origin = airport.iata
-                        resolve()
-                    })
-                })
-                //let's do the same thing for the dest airport codes
-                const destinationPromise = new Promise(resolve => {
-                    Airports.findOne({icao: arrivalData[i].destination}, (err, airport) => {
-                        arrivalData[i].destination = airport.iata
-                        resolve()
-                    })
-                })
-                promises.push(originPromise)
-                promises.push(destinationPromise)
-            }
-            Promise.all(promises)
-                .then(() => {
-                    res.render('flights/index.ejs',
-                        {
-                            data:arrivalData,
-                            user:req.session.user
-                        })
-                })
-
-        })
+    res.redirect('/flight')
 })
 
 // app.get('/seed', (req, res) => {

@@ -1,6 +1,10 @@
 <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 bg-white border-bottom shadow-sm">
     <img src="/img/flight.svg" alt="">
     <h4 class="my-0 mr-md-auto font-weight-normal">Arrivals Board</h4>
+    <form class="form-inline mt-2 mt-md-0" action="/flight/search/" method="post">
+        <input class="form-control mr-sm-2" type="text" placeholder="Search for city/airport" name="input" aria-label="Search">
+        <input class="btn btn-info my-2 my-sm-0" type="submit" name="input" value="Submit">
+    </form>
     <nav class="my-2 my-md-0 mr-md-3">
         <% if(user){ %>
         <a class="p-2 text-dark" href="/users/edit">Hello, <%=user.username%></a>
