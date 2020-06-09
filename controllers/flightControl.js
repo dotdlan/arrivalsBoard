@@ -14,7 +14,7 @@ router.get('/', (req, res) =>{
             //will use promises to fulfill my findOne req
             const promises = []
             //let's translate some of the data to something more human readable
-            for(let i = 0; i < arrivalData.length-1; i++) {
+            for(let i = 0; i < arrivalData.length; i++) {
                 //First, let's translate origin time from epoch to human
                 let epochTime = arrivalData[i].estimatedarrivaltime;
                 let humanTime = new Date(epochTime * 1000)
@@ -49,30 +49,38 @@ router.get('/', (req, res) =>{
 })
 
 router.post('/search/', (req, res) => {
-    let userInfo = req.session.user.username
+    let userInfo = ''
+    if (req.session.user !== undefined) {
+        userInfo = req.session.user.username
+    }
     let searchTerm = req.body.input[0]
-    console.log(userInfo)
+    console.log('the user is', userInfo)
     console.log(searchTerm)
     console.log(searchTerm.length)
-    const hasNumbers = (str) =>{
+    const hasNumbers = (str) => {
         let regex = /\d/g;
         return regex.test(str);
     }
     console.log(hasNumbers(searchTerm))
-    if (searchTerm.length === 3){
+    //let's first test for a 3 digit city code
+    if (searchTerm.length === 3) {
         console.log('if wins, city code')
-        Airports.findOne({iata: searchTerm}).then( foundAirport =>{
+        Airports.findOne({iata: searchTerm}).then(foundAirport => {
             selectedAirport = foundAirport.icao
             res.redirect('/flight')
         })
-
+        //Then, let's test for a flight number by checking for a number in the query
     } else if (hasNumbers(searchTerm)) {
         console.log('else if wins, probably a flight number')
-    } else{
+        //Then, let's try a city, and if all else fails, set selectedAirport to katl
+    } else {
         console.log('else wins, probably a city')
+        Airports.find({city: searchTerm}).then(foundAirport => {
+            console.log(foundAirport)
+        })
     }
-
 })
+
 
 
 
