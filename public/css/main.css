@@ -1,5 +1,5 @@
 .table tr{
-    background-color: dodgerblue;
+    background-color: rgb(2,106,195);
     color: white;
 }
 .table a, .table a:hover, .table a:visited{
@@ -7,5 +7,5 @@
     color: white;
 }
 .table tr:nth-child(odd){
-    background-color: cadetblue;
+    background-color: rgb(0,29,127);
 }
