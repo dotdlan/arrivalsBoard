@@ -5,13 +5,23 @@
     <title>Flight Board</title>
 </head>
 <body>
+<%- include ('../partials/header.ejs') %>
     <div class="container">
-        <div class="flight-container">
-<!--            pull in flight number, arrival-->
-            <h1>Flight <%=flight.number%></h1>
-            <h3>Scheduled Arrival: <%=flight.arrival%></h3>
-            <h3>Flight status: <%=flight.status%></h3>
-
+        <div class="">
+            <div class="col-md-4 mx-auto">
+                <div class="card mb-4 shadow-sm"></div>
+                    <img src="/img/flight.svg">
+                    <div class="card-body m-1 p-1">
+                        <p><%=flight.ident%></p>
+                        <p>Origin: <%=flight.origin%></p>
+                        <p>Scheduled Arrival: <%=flight.arrival%></p>
+                        <%if (flight.arrival == undefined){%>
+                        <p>Altitude: <%=flight.altitude%></p>
+                        <p>Ground speed: <%=flight.groundspeed%></p>
+                        <%}%>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </body>

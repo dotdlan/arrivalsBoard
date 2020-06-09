@@ -1,5 +1,6 @@
 $(() => {
     $('.table').on('click', 'tr', (e)=>{
-        console.log($(e.currentTarget).data('link'))
+        window.location.href = '/flight/' + $(e.currentTarget).data('link')
     })
+
 })
