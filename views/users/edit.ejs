@@ -4,19 +4,23 @@
     <%- include ('../partials/head.ejs') %>
     <title>Update Passenger</title>
 </head>
-<body>
+<body class="text-center">
     <div class="container">
         <div class="user-info-edit">
-            <form action="/users/edit/<%=user._id%>?_method=PUT" method="POST">
-                Name: <input type="text" name="name" placeholder="<%=user.name%>" /><br/>
-                Birthday: <input type="date" name="dob" /><br/>
-                <input type="submit" value="Update"/>
+
+            <form class="form-signin" action="/users/edit/<%=user._id%>?_method=PUT" method="POST">
+                <img class="mb-4" src="/img/flight.svg" alt="" width="72" height="72">
+                <h1 class="h3 mb-3 font-weight-normal">Update info</h1>
+                Name: <input type="text" class="form-control" name="name" placeholder="<%=user.name%>" required autofocus>
+                Date of Birth: <input type="date" class="form-control" name="dob" placeholder="<%=user.dob%>" required>
+                <button class="btn btn-lg btn-primary btn-block" type="submit" value="Update">Update</button>
             </form>
-            Delete account?
-            <form action="/users/delete/<%=user._id %>?_method=DELETE" method="POST">
-                <input type="submit" value="DELETE"/>
+
+            <form class="form-signin" action="/users/delete/<%=user._id %>?_method=DELETE" method="POST">
+                <input type="submit" value="Delete account?"/>
             </form>
-            <a href="/session/logout">log out?</a>
+            <p class="form-signin"><a href="/session/logout">log out?</a></p>
+
 
         </div>
     </div>

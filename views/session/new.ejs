@@ -4,14 +4,14 @@
     <%- include ('../partials/head.ejs') %>
     <title>Boarding Pass</title>
 </head>
-<body>
-<form class="form-signin" action="/session" method="POST">
-    <img class="mb-4" src="/img/flight.svg" alt="" width="72" height="72">
-    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-    <input type="text" class="form-control" name="username" placeholder="Username" required autofocus>
-    <input type="password" class="form-control" name="password" placeholder="Password" required>
-    <button class="btn btn-lg btn-primary btn-block" type="submit" value="Log In">Register</button>
-</form>
+<body class="text-center">
+    <form class="form-signin" action="/session" method="POST">
+        <img class="mb-4" src="/img/flight.svg" alt="" width="72" height="72">
+        <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+        <input type="text" class="form-control" name="username" placeholder="Username" required autofocus>
+        <input type="password" class="form-control" name="password" placeholder="Password" required>
+        <button class="btn btn-lg btn-primary btn-block" type="submit" value="Log In">Log in</button>
+    </form>
 </div>
 </body>
 </html>
