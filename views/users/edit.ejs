@@ -8,7 +8,7 @@
     <div class="container">
         <div class="user-info-edit">
             <form action="/users/edit/<%=user._id%>?_method=PUT" method="POST">
-                Name: <input type="text" name="name" /><br/>
+                Name: <input type="text" name="name" placeholder="<%=user.name%>" /><br/>
                 Birthday: <input type="date" name="dob" /><br/>
                 <input type="submit" value="Update"/>
             </form>
@@ -16,6 +16,7 @@
             <form action="/users/delete/<%=user._id %>?_method=DELETE" method="POST">
                 <input type="submit" value="DELETE"/>
             </form>
+            <a href="/session/logout">log out?</a>
 
         </div>
     </div>

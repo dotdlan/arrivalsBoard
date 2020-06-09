@@ -15,12 +15,22 @@ router.post('/', (req, res) => {
             const doesPasswordMatch = bcrypt.compareSync(req.body.password, foundUser.password);
             if(doesPasswordMatch){
                 req.session.user = foundUser;
-                res.redirect('/flight');
+                res.redirect('/');
             } else {
                 res.redirect('/session/new');
             }
         }
     })
+})
+
+router.get('/logout', (req, res) => {
+
+    req.session.destroy(err => {
+        if (err) {
+            console.log(err)
+        }
+    })
+    res.redirect('/')
 })
 
 module.exports = router;
