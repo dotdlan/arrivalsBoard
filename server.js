@@ -73,12 +73,13 @@ app.get('/', (req, res) => {
                 promises.push(originPromise)
                 promises.push(destinationPromise)
             }
+            console.log(req.session.user)
             Promise.all(promises)
                 .then(() => {
                     res.render('flights/index.ejs',
                         {
                             data:arrivalData,
-                            user:""
+                            user:req.session.user
                         })
                 })
 

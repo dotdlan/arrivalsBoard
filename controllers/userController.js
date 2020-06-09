@@ -12,12 +12,13 @@ router.get('/new', (req, res) => {
 //create a user
 router.post('/', (req, res) => {
     req.body.password = bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(10));
+    console.log(req.body)
     User.create(req.body, (error, createdUser) => {
         req.session.user = createdUser
         if (error){
             console.log(error)
         } else {
-            res.redirect('/flight');
+            res.redirect('/');
         }
     })
 });
