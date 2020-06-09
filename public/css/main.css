@@ -1,0 +1,11 @@
+.table tr{
+    background-color: dodgerblue;
+    color: white;
+}
+.table a, .table a:hover, .table a:visited{
+    text-decoration: none;
+    color: white;
+}
+.table tr:nth-child(odd){
+    background-color: cadetblue;
+}

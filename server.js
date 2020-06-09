@@ -48,22 +48,42 @@ app.get('/', (req, res) => {
         .then(response => response.json())
         .then(data => {
             const arrivalData = data.EnrouteResult.enroute
-            res.render('flights/index.ejs',
-            {
-                data:arrivalData,
-                user:""
-            })
+            //let's convert from epoch to human time
+            const promises = []
+            for(let i = 0; i < arrivalData.length-1; i++) {
+                let epochTime = arrivalData[i].estimatedarrivaltime;
+                let humanTime = new Date(epochTime * 1000)
+                arrivalData[i].estimatedarrivaltime = humanTime.toLocaleTimeString('en-US')
+                //let's convert those itao24 airport codes to iata city codes
+                const airportPromise = new Promise(resolve => {
+                    Airports.findOne({icao: arrivalData[i].origin}, (err, airport) => {
+                        arrivalData[i].origin = airport.iata
+                        resolve()
+                    })
+                })
+                promises.push(airportPromise)
+            }
+            Promise.all(promises)
+                .then(() => {
+                    res.render('flights/index.ejs',
+                        {
+                            data:arrivalData,
+                            user:""
+                        })
+                })
+
         })
 })
 
-app.get('/seed', (req, res) => {
-    Airports.create(airportSeed, (err, data) => {
-  if (err) console.log(err.message)
-  console.log('added data')
-})
-})
+// app.get('/seed', (req, res) => {
+//     Airports.create(airportSeed, (err, data) => {
+//   if (err) console.log(err.message)
+//   console.log('added data')
+// })
+// })
 
 
 app.listen(PORT, () => {
     console.log('Listening on port:', PORT)
 })
+

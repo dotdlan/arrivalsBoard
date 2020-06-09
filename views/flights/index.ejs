@@ -16,12 +16,12 @@
                 <th>Dest</th>
             </tr>
             <% for (const item in data){ %>
-            <tr>
-                <th><a href='/show/<%=data[item].ident %>'><%=data[item].ident %></a></th>
-                <th><%=data[item].estimatedarrivaltime %></th>
-                <th><%=data[item].origin %></th>
-                <th><%=data[item].destination %></th>
-            </tr>
+                <tr data-link='<%=data[item].ident%>'>
+                    <td><%=data[item].ident %></td>
+                    <td><%=data[item].estimatedarrivaltime %></td>
+                    <td><%=data[item].origin %></td>
+                    <td><%=data[item].destination %></td>
+                </tr>
             <% }%>
         </table>
     </div>
