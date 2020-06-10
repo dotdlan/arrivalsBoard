@@ -49,7 +49,6 @@ router.get('/', (req, res) =>{
                             user:req.session.user
                         })
                 })
-
         })
 })
 
@@ -63,7 +62,6 @@ router.post('/search/', (req, res) => {
         let regex = /\d/g;
         return regex.test(str);
     }
-
     //let's first test for a 3 digit city code
     if (searchTerm.length === 3) {
         console.log('if wins, probably city code')
@@ -79,7 +77,6 @@ router.post('/search/', (req, res) => {
     } else {
         console.log('else wins, probably a city')
         Airports.find({city: searchTerm}).then(foundAirport => {
-
         })
     }
 })
@@ -90,6 +87,12 @@ router.get('/detail/:id', (req, res) => {
         .then(response => response.json())
         .then(data => {
             flightData = data.InFlightInfoResult
+            //let's try to make arrivalTime human readable, if no time is present, flight is still in air
+            if (flightData.arrivalTime > 0){
+                let epochTime = flightData.arrivalTime;
+                let humanTime = new Date(epochTime * 1000)
+                flightData.arrivalTime = humanTime.toLocaleTimeString('en-US')
+            }
             mapURL = `${staticURL}&zoom=5&markers=color:blue|${flightData.latitude},${flightData.longitude}&key=${process.env.GMAPS_KEY}`
             res.render('flights/show.ejs',
                 {
