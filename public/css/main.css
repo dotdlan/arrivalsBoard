@@ -26,3 +26,8 @@
 .map{
     border-radius: 115px;
 }
+
+.footer-div > p{
+    margin-left: 5px;
+    margin-right: 5px;
+}
