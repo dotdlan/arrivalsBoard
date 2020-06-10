@@ -3,7 +3,6 @@ const express = require('express')
 const methodOverride = require('method-override')
 const mongoose = require('mongoose')
 const session = require('express-session');
-const fetch = require("node-fetch");
 
 //config
 const app = express()
@@ -15,7 +14,6 @@ const PORT = process.env.PORT || 3333
 const MONGODB_URI = process.env.MONGODB_URI
 mongoose.connect(MONGODB_URI , { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false }
 )
-const Airports = require('./models/airports.js')
 const airportSeed = require('./models/airportSeeds')
 
 // Error / success

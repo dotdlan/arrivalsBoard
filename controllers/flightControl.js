@@ -25,9 +25,7 @@ router.get('/', (req, res) =>{
                 arrivalData[i].estimatedarrivaltime = humanTime.toLocaleTimeString('en-US')
                 //Next, let's convert those origin icao airport codes to iata city codes
                 const originPromise = new Promise(resolve => {
-                    console.log(arrivalData[i])
                     Airports.findOne({icao: arrivalData[i].origin}, (err, airport) => {
-                        // console.log(airport)
                         arrivalData[i].origin = airport.iata
                         resolve()
                     })
@@ -39,6 +37,7 @@ router.get('/', (req, res) =>{
                         resolve()
                     })
                 })
+                //each time through the loop, let's add this to my array of promises
                 promises.push(originPromise)
                 promises.push(destinationPromise)
             }
@@ -48,10 +47,6 @@ router.get('/', (req, res) =>{
                         {
                             data:arrivalData,
                             user:req.session.user
-                        }, (err, data) =>{
-                            if (err){
-                                console.log(err)
-                            }
                         })
                 })
 
@@ -64,17 +59,14 @@ router.post('/search/', (req, res) => {
         userInfo = req.session.user.username
     }
     let searchTerm = req.body.input[0]
-    console.log('the user is', userInfo)
-    console.log(searchTerm)
-    console.log(searchTerm.length)
     const hasNumbers = (str) => {
         let regex = /\d/g;
         return regex.test(str);
     }
-    console.log(hasNumbers(searchTerm))
+
     //let's first test for a 3 digit city code
     if (searchTerm.length === 3) {
-        console.log('if wins, city code')
+        console.log('if wins, probably city code')
         Airports.findOne({iata: searchTerm}).then(foundAirport => {
             selectedAirport = foundAirport.icao
             res.redirect('/flight')
@@ -87,7 +79,7 @@ router.post('/search/', (req, res) => {
     } else {
         console.log('else wins, probably a city')
         Airports.find({city: searchTerm}).then(foundAirport => {
-            console.log(foundAirport)
+
         })
     }
 })
@@ -99,7 +91,6 @@ router.get('/detail/:id', (req, res) => {
         .then(data => {
             flightData = data.InFlightInfoResult
             mapURL = `${staticURL}&zoom=5&markers=color:blue|${flightData.latitude},${flightData.longitude}&key=${process.env.GMAPS_KEY}`
-            console.log(mapURL)
             res.render('flights/show.ejs',
                 {
                     user: req.session.user,
