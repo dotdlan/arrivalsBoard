@@ -48,6 +48,10 @@ router.get('/', (req, res) =>{
                         {
                             data:arrivalData,
                             user:req.session.user
+                        }, (err, data) =>{
+                            if (err){
+                                console.log(err)
+                            }
                         })
                 })
 
