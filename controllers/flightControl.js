@@ -5,7 +5,7 @@ const fetch = require("node-fetch");
 require('dotenv').config()
 const Airports = require('../models/airports.js')
 
-let selectedAirport = 'kaus'
+let selectedAirport = 'kjfk'
 let fetchAirportUrl = `http://${process.env.FA_NAME}:${process.env.FA_KEY}@flightxml.flightaware.com/json/FlightXML2/Enroute?filter=airline&airport=`
 let fetchFlightUrl = `http://${process.env.FA_NAME}:${process.env.FA_KEY}@flightxml.flightaware.com/json/FlightXML2/InFlightInfo?ident=`
 const staticURL = "https://maps.googleapis.com/maps/api/staticmap?maptype=hybrid&size=300x300";
