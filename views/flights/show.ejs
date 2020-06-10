@@ -4,10 +4,10 @@
     <%- include ('../partials/head.ejs') %>
     <title>Flight Board</title>
 </head>
-<body>
+<body class="text-center">
 <%- include ('../partials/header.ejs') %>
-    <div class="container">
-        <div class="">
+
+        <div class="container">
             <div class="col-md-4 mx-auto">
                 <div class="card mb-4 shadow-sm"></div>
                     <img src="/img/flight.svg">
@@ -17,7 +17,7 @@
                         <p>Scheduled Arrival: <%=flight.arrival%></p>
                         <%if (flight.arrival == undefined){%>
                         <p>Altitude: <%=flight.altitude%></p>
-                        <p>Ground speed: <%=flight.groundspeed%></p>
+                        <p>Ground speed: <%=flight.groundspeed%>MPH</p>
                         <%}%>
                         <img src="<%=gmap%>">
                     </div>
