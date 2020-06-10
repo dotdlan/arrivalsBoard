@@ -5,7 +5,7 @@ const fetch = require("node-fetch");
 require('dotenv').config()
 const Airports = require('../models/airports.js')
 
-let selectedAirport = 'katl'
+let selectedAirport = 'kaus'
 let fetchAirportUrl = `http://${process.env.FA_NAME}:${process.env.FA_KEY}@flightxml.flightaware.com/json/FlightXML2/Enroute?filter=airline&airport=`
 let fetchFlightUrl = `http://${process.env.FA_NAME}:${process.env.FA_KEY}@flightxml.flightaware.com/json/FlightXML2/InFlightInfo?ident=`
 const staticURL = "https://maps.googleapis.com/maps/api/staticmap?maptype=hybrid&size=300x300";
@@ -25,7 +25,9 @@ router.get('/', (req, res) =>{
                 arrivalData[i].estimatedarrivaltime = humanTime.toLocaleTimeString('en-US')
                 //Next, let's convert those origin icao airport codes to iata city codes
                 const originPromise = new Promise(resolve => {
+                    console.log(arrivalData[i])
                     Airports.findOne({icao: arrivalData[i].origin}, (err, airport) => {
+                        // console.log(airport)
                         arrivalData[i].origin = airport.iata
                         resolve()
                     })
