@@ -4,10 +4,15 @@ const router = express.Router();
 const fetch = require("node-fetch");
 require('dotenv').config()
 const Airports = require('../models/airports.js')
+
 let selectedAirport = 'katl'
+let fetchAirportUrl = `http://${process.env.FA_NAME}:${process.env.FA_KEY}@flightxml.flightaware.com/json/FlightXML2/Enroute?filter=airline&airport=`
+let fetchFlightUrl = `http://${process.env.FA_NAME}:${process.env.FA_KEY}@flightxml.flightaware.com/json/FlightXML2/InFlightInfo?ident=`
 
 router.get('/', (req, res) =>{
-    fetch(`http://${process.env.FA_NAME}:${process.env.FA_KEY}@flightxml.flightaware.com/json/FlightXML2/Enroute?airport=${selectedAirport}&filter=airline`)
+    console.log(req)
+    console.log(res)
+    fetch(fetchAirportUrl + selectedAirport)
         .then(response => response.json())
         .then(data => {
             const arrivalData = data.EnrouteResult.enroute
@@ -72,6 +77,7 @@ router.post('/search/', (req, res) => {
         //Then, let's test for a flight number by checking for a number in the query
     } else if (hasNumbers(searchTerm)) {
         console.log('else if wins, probably a flight number')
+        res.redirect(`/flight/detail/${searchTerm}`)
         //Then, let's try a city, and if all else fails, set selectedAirport to katl
     } else {
         console.log('else wins, probably a city')
@@ -80,9 +86,6 @@ router.post('/search/', (req, res) => {
         })
     }
 })
-
-
-
 
 // Show detail status on a specific flight
 router.get('/detail/:id', (req, res) => {
@@ -97,7 +100,5 @@ router.get('/detail/:id', (req, res) => {
                 })
          })
 })
-
-
 
 module.exports = router;
