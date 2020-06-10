@@ -65,10 +65,14 @@ router.post('/search/', (req, res) => {
     //let's first test for a 3 digit city code
     if (searchTerm.length === 3) {
         console.log('if wins, probably city code')
+        searchTerm = searchTerm.toUpperCase()
         Airports.findOne({iata: searchTerm}).then(foundAirport => {
             selectedAirport = foundAirport.icao
             res.redirect('/flight')
         })
+            .catch(err =>{
+                console.log(err)
+            })
         //Then, let's test for a flight number by checking for a number in the query
     } else if (hasNumbers(searchTerm)) {
         console.log('else if wins, probably a flight number')
