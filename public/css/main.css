@@ -30,9 +30,17 @@
 .main-footer-div {
     border-top: 1px solid lightgrey ;
     padding-top: 15px;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    display: block;
 }
-
 .footer-div > p{
     margin-left: 5px;
     margin-right: 5px;
+
+}
+.links a, .links a:hover, .links a:visited{
+    text-decoration: none;
+    color: rgb(2,106,195);
 }
