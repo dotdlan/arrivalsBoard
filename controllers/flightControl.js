@@ -26,7 +26,9 @@ router.get('/', (req, res) =>{
                 //Next, let's convert those origin icao airport codes to iata city codes
                 const originPromise = new Promise(resolve => {
                     Airports.findOne({icao: arrivalData[i].origin}, (err, airport) => {
-                        arrivalData[i].origin = airport.iata
+                        if (airport != null){
+                            arrivalData[i].origin = airport.iata
+                        }
                         resolve()
                     })
                 })
