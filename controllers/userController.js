@@ -26,6 +26,7 @@ router.post('/', (req, res) => {
 router.get('/edit', (req, res) => {
     const userInfo = req.session.user
     if(userInfo.username){
+        console.log(userInfo)
         res.render('users/edit.ejs',
             {
                 user: userInfo

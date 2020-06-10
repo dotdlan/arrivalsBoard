@@ -8,10 +8,9 @@ const Airports = require('../models/airports.js')
 let selectedAirport = 'katl'
 let fetchAirportUrl = `http://${process.env.FA_NAME}:${process.env.FA_KEY}@flightxml.flightaware.com/json/FlightXML2/Enroute?filter=airline&airport=`
 let fetchFlightUrl = `http://${process.env.FA_NAME}:${process.env.FA_KEY}@flightxml.flightaware.com/json/FlightXML2/InFlightInfo?ident=`
+const staticURL = "https://maps.googleapis.com/maps/api/staticmap?maptype=hybrid&size=300x300";
 
 router.get('/', (req, res) =>{
-    console.log(req)
-    console.log(res)
     fetch(fetchAirportUrl + selectedAirport)
         .then(response => response.json())
         .then(data => {
@@ -93,10 +92,13 @@ router.get('/detail/:id', (req, res) => {
         .then(response => response.json())
         .then(data => {
             flightData = data.InFlightInfoResult
+            mapURL = `${staticURL}&zoom=5&markers=color:blue|${flightData.latitude},${flightData.longitude}&key=${process.env.GMAPS_KEY}`
+            console.log(mapURL)
             res.render('flights/show.ejs',
                 {
                     user: req.session.user,
-                    flight: flightData
+                    flight: flightData,
+                    gmap: mapURL
                 })
          })
 })
