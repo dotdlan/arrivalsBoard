@@ -27,7 +27,7 @@ app.use(express.static('public'))
 app.use(express.urlencoded({ extended: true}))
 app.use(methodOverride('_method'))
 app.use(session({
-    secret:'batman',
+    secret:`${process.env.SS_arrival_board_key_bat}`,
     resave:false,
     saveUninitialized:false
 }));
