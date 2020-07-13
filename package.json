@@ -2,7 +2,7 @@
   "name": "flightboard",
   "version": "1.0.0",
   "engines": {
-    "node": "14.2.0"
+    "node": "12.x.x"
   },
   "description": "a replica of the flights arrival and departures board in the virtual world",
   "main": "server.js",
@@ -29,6 +29,7 @@
     "express-session": "^1.17.1",
     "method-override": "^3.0.0",
     "mongoose": "^5.9.17",
+    "node": "^12.18.1",
     "node-fetch": "^2.6.0"
   }
 }
