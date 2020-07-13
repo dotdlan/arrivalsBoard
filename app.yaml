@@ -1,0 +1,12 @@
+runtime: nodejs12
+
+env_variables:
+  MONGODB_URI: mongodb+srv://mflightAppUser:K36FhCHs9B2iGG@cluster0-v1xyc.mongodb.net/test?retryWrites=true&w=majority
+  FA_NAME: 'david6116'
+  FA_KEY: '22408da291892c2ec5c847354c227f63af348ad7'
+  GMAPS_KEY: 'AIzaSyACJV6r7RNNeasGt_vdvf3lhFC71dZFn04'
+  SS_KEY: 'SS_arrival_board_key_bat'
+
+handlers:
+- url: /public
+  static_dir: public
