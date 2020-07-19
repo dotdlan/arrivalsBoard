@@ -28,8 +28,8 @@
     "express": "^4.17.1",
     "express-session": "^1.17.1",
     "method-override": "^3.0.0",
-    "mongoose": "^5.9.17",
-    "node": "^12.18.1",
+    "mongoose": "^5.9.25",
+    "node": "^12.18.2",
     "node-fetch": "^2.6.0"
   }
 }
