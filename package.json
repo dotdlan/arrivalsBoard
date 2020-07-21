@@ -7,7 +7,7 @@
   "description": "a replica of the flights arrival and departures board in the virtual world",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "start": "node server.js"
   },
   "repository": {
@@ -31,5 +31,12 @@
     "mongoose": "^5.9.25",
     "node": "^12.18.2",
     "node-fetch": "^2.6.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "jest": "^26.1.0",
+    "superagent": "^5.3.1",
+    "supertest": "^4.0.2"
   }
 }
