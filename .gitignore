@@ -103,5 +103,8 @@ dist
 # TernJS port file
 .tern-port
 
-ignore app.yaml files
+#ignore app.yaml files
 app.yaml
+
+#jetbrains
+.idea/*
