@@ -27,7 +27,6 @@ router.get('/edit', (req, res) => {
     const userInfo = req.session.user
     if(userInfo.username){
         userInfo.dob = userInfo.dob.slice(0, 10)
-        console.log(userInfo)
         res.render('users/edit.ejs',
             {
                 user: userInfo
@@ -41,6 +40,9 @@ router.get('/edit', (req, res) => {
 //Update user info from update page
 router.put('/edit/:id', (req, res) => {
     User.findByIdAndUpdate(req.params.id, req.body, {new:true}, (err, updateModel) => {
+        const userInfo = req.session.user
+        userInfo.dob = req.body.dob
+        userInfo.name = req.body.name
         res.redirect('/');
     })
 })
