@@ -26,6 +26,8 @@ router.post('/', (req, res) => {
 router.get('/edit', (req, res) => {
     const userInfo = req.session.user
     if(userInfo.username){
+        userInfo.dob = userInfo.dob.slice(0, 10)
+        console.log(userInfo)
         res.render('users/edit.ejs',
             {
                 user: userInfo
