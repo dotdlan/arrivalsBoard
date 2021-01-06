@@ -25,7 +25,7 @@
   },
   "homepage": "https://github.com/david6116/FlightBoard#readme",
   "dependencies": {
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "bcrypt": "^5.0.0",
     "braces": "^3.0.2",
     "dotenv": "^8.2.0",
