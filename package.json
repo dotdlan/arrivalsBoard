@@ -35,7 +35,7 @@
     "method-override": "^3.0.0",
     "mongoose": "^5.11.18",
     "node": "^12.21.0",
-    "node-fetch": "^2.6.1"
+    "node-fetch": "^2.6.7"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
